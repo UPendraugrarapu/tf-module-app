@@ -20,7 +20,12 @@ resource "aws_launch_template" "main" {
     {Name = "${var.name}-${var.env}"}
     )
 
-#   user_data = filebase64("${path.module}/example.sh")
+  
+  user_data = base64encode(templatefile("${path.module}/userdata.sh", {
+        component = var.component
+        env = var.env
+        
+      } ))
 }
 }
 
