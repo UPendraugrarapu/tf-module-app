@@ -25,6 +25,7 @@ resource "aws_iam_policy" "main" {
         }
     ]
 })
+}
 resource "aws_iam_role" "main" {
   name = "${var.component}-${var.env}"
 
@@ -43,16 +44,16 @@ resource "aws_iam_role" "main" {
   })
 
   tags = merge(
-    var.tags, 
-    {Name = "${var.name}-${var.env}"}
-    )
-}
+    var.tags,
+    { Name = "${var.component}-${var.env}" }
+  )
 }
 
 resource "aws_iam_instance_profile" "main" {
   name = "${var.component}-${var.env}"
   role = aws_iam_role.main.name
 }
+
 resource "aws_iam_role_policy_attachment" "attach" {
   role       = aws_iam_role.main.name
   policy_arn = aws_iam_policy.main.arn
