@@ -19,14 +19,13 @@ resource "aws_launch_template" "main" {
     var.tags, 
     {Name = "${var.name}-${var.env}"}
     )
-
   
+  }
   user_data = base64encode(templatefile("${path.module}/userdata.sh", {
-        component = var.component
-        env = var.env
-        
-      } ))
-}
+    component = var.component
+    env       = var.env
+  }))
+
 }
 
 resource "aws_autoscaling_group" "main" {
