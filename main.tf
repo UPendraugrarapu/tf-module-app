@@ -20,7 +20,7 @@ resource "aws_launch_template" "main" {
 
   tags = merge(
     var.tags, 
-    {Name = "${var.name}-${var.env}"}
+    {Name = "${var.component}-${var.env}", monitor="yes"}
     )
   
   }
