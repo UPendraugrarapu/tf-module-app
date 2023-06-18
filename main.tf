@@ -1,14 +1,25 @@
-resource "aws_launch_template" "main" {
-  name = "${var.component}-${var.env}"
+#resource "aws_launch_template" "main" {
+#  name = "${var.component}-${var.env}"
+#
+#  iam_instance_profile {
+#    name = aws_iam_instance_profile.main.name
+#  }
+#
+#  image_id = data.aws_ami.ami.id
+#  instance_market_options {
+#    market_type = "on-demand"
+#  }
 
-  iam_instance_profile {
-    name = aws_iam_instance_profile.main.name
+  resource "aws_launch_template" "main" {
+    name = "${var.component}-${var.env}"
+
+    iam_instance_profile {
+      name = aws_iam_instance_profile.main.name
+    }
+
+    image_id = data.aws_ami.ami.id
   }
 
-  image_id = data.aws_ami.ami.id
-  instance_market_options {
-    market_type = "on-demand"
-  }
 
   instance_type = var.instance_type
 
@@ -29,7 +40,8 @@ resource "aws_launch_template" "main" {
     env       = var.env
   }))
 
-}
+
+
 
 resource "aws_autoscaling_group" "main" {
   name = "${var.component}-${var.env}"
